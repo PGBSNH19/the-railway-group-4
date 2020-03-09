@@ -10,6 +10,8 @@ namespace Train_Railway
     {
         static void Main(string[] args)
         {
+            FileManager file = new FileManager();
+            file.ReadingFile(file.passengers);
         }
     }
 }
