@@ -5,7 +5,7 @@ namespace Train_Railway
 {
     public class FileManager
     {
-       public string passengers = "passengers.txt";
+       public string passengers = @"Data/passengers.txt";
 
         public void ReadingFile(string filePath)
         {
