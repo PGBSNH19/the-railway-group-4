@@ -10,6 +10,7 @@ namespace Train_Railway
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("hello");
         }
     }
 }
