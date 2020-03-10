@@ -13,17 +13,25 @@ namespace Train_Railway
         //int Departure { get; set; }
         //int TrainID { get; set; }
         //int StationID { get; set; }
-        ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/);
+        //ITrainInfo GetTrain(int arrival, int departure, int trainID, int stationID);
     }
-    class Timetable: ITrainInfo
+    class Timetable: ITrainInfo, IData
     {
         public string Arrival { get; set; }
         public string Departure { get; set; }
         public string TrainID { get; set; }
         public int StationID { get; set; }
-       // public string TimetablePath = "Data/timetable.txt";
-        public ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/)
+
+        public Timetable(string arrival, string departure, string trainID, int stationID)
         {
+            this.Arrival = arrival;
+            this.Departure = departure;
+            this.TrainID = trainID;
+            this.StationID = stationID;
+        }
+       // public string TimetablePath = "Data/timetable.txt";
+        //public ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/)
+        //{
             //string[] data = File.ReadAllLines(TimetablePath);
             //for (int i = 0; i < data.Length; i++)
             //{
@@ -45,7 +53,7 @@ namespace Train_Railway
             //this.Departure = departure;
             //this.TrainID = trainID;
             //this.StationID = stationID;
-            return this; 
-        }
+           //return this; 
+        //}
     }
 }

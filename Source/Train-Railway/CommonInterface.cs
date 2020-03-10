@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace Train_Railway
 {
-   public interface{
-
-    }
+  
 }

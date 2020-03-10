@@ -4,10 +4,7 @@ using System.IO;
 
 namespace Train_Railway
 {
-    public interface IData
-    {
-        
-    }
+    public interface IData { }
 
     class FilesPath
     {
@@ -21,32 +18,32 @@ namespace Train_Railway
 
     public interface IFilesRead
     {
-        IFilesSplit ReadingFile(string filePath);
+        string[] ReadingFile(string filePath);
     }
 
-    public interface IFilesSplit
+    /*public interface IFilesSplit
     {
-        void SplitFile();
-    }
+        void SplitFile(IData idata);
+    }*/
 
-    class FileManager: IFilesRead, IFilesSplit
+    class FileManager: IFilesRead //,IFilesSplit
     {
-        private string[] data;
+        //private string[] data;
 
         public FileManager()
         {
 
         }
 
-        public IFilesSplit ReadingFile(string filePath)
+        public string[] ReadingFile(string filePath)
         {
             string[] data = File.ReadAllLines(filePath);
             
 
-            return this;
+            return data;
         }
 
-        public void SplitFile()
+        /*public void SplitFile<T>(List<T> theList)
         {
             char[] splitBy = { ',', ';' };
 
@@ -54,12 +51,9 @@ namespace Train_Railway
             {
                 string[] splitedData = data[i].Split(splitBy);
 
-                foreach (var item in splitedData)
-                {
-                    Console.WriteLine(item);
-                }
+                theList.Add(new )
 
             }
-        }
+        }*/
     }
 }
