@@ -39,7 +39,6 @@ namespace Train_Railway
         {
             string[] data = File.ReadAllLines(filePath);
             
-
             return data;
         }
 
