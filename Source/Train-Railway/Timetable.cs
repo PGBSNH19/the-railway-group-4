@@ -9,43 +9,49 @@ namespace Train_Railway
 {
     interface ITrainInfo
     {
-        //int Arrival { get; set; }
-        //int Departure { get; set; }
-        //int TrainID { get; set; }
-        //int StationID { get; set; }
-        ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/);
+        ITrainInfo GetTrain(string[] data);
     }
-    class Timetable: ITrainInfo
+    class Timetable : ITrainInfo
     {
         public string Arrival { get; set; }
         public string Departure { get; set; }
         public string TrainID { get; set; }
         public int StationID { get; set; }
-       // public string TimetablePath = "Data/timetable.txt";
-        public ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/)
+        public ITrainInfo GetTrain(string[] data )
         {
-            //string[] data = File.ReadAllLines(TimetablePath);
-            //for (int i = 0; i < data.Length; i++)
+            //foreach (var item in data)
             //{
-            //   string [] splitedData= data[i].Split(',');
-            //    //Console.WriteLine(splitedData[0]);
-            //    this.TrainID = splitedData[0];
-            //    Console.WriteLine(TrainID);
-            //    //foreach (var item in splitedData)
-            //    //{
-            //    //    //.WriteLine(item);
-            //    //    this.TrainID = item[0];
-            //    //    //this.StationID = item[1];
-            //    //    //this.Departure = item[2].ToString();
-            //    //    //this.Arrival = item[3].ToString();
-            //    //}
-
+            //    Console.WriteLine(item);
             //}
-            ////this.Arrival = arrival;
-            //this.Departure = departure;
-            //this.TrainID = trainID;
-            //this.StationID = stationID;
-            return this; 
+            List<string> file = new List<string>();
+            file.Add(data[0]);
+
+
+            this.TrainID = file[0];
+            return this;
+        }
+
+        public string MyMethod()
+        {
+            Console.WriteLine(TrainID);
+            return this.TrainID;
         }
     }
 }
+
+
+//public string TimetablePath = "Data/timetable.txt";
+//public string MyMethod()
+//{
+//    string[] data = File.ReadAllLines(TimetablePath);
+//    GetTrain(data);
+//    return this.TrainID;
+//}
+
+//for (int i = 0; i < data.Length; i++)
+//{
+//    string[] splitedData = data[i].Split(',');
+
+//    this.TrainID = splitedData[0];
+//    Console.WriteLine("This Train ID is " + TrainID);
+//}

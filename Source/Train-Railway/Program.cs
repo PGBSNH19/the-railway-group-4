@@ -12,11 +12,11 @@ namespace Train_Railway
         {
             FileManager file = new FileManager();
             FilesPath m = new FilesPath();
+            file.ReadingFile(m.TimetablePath);
 
-            file.ReadingFile(m.PassengersPath);
+            var t = new Timetable().MyMethod();
+            Console.WriteLine(t);
 
-            //var t = new Timetable().GetTrain();
-            //Console.WriteLine(t);
         }
     }
 }

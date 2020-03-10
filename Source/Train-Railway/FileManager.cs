@@ -26,12 +26,12 @@ namespace Train_Railway
 
     public interface IFilesSplit
     {
-        void SplitFile();
+        void SplitFile(string [] s);
     }
 
     class FileManager: IFilesRead, IFilesSplit
     {
-        private string[] data;
+        //private string[] data;
 
         public FileManager()
         {
@@ -41,23 +41,26 @@ namespace Train_Railway
         public IFilesSplit ReadingFile(string filePath)
         {
             string[] data = File.ReadAllLines(filePath);
-            
+            SplitFile(data);
 
             return this;
         }
 
-        public void SplitFile()
+        public void SplitFile(string [] r)
         {
             char[] splitBy = { ',', ';' };
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0; i < r.Length; i++)
             {
-                string[] splitedData = data[i].Split(splitBy);
+                string[] splitedData = r[i].Split(splitBy);
 
-                foreach (var item in splitedData)
-                {
-                    Console.WriteLine(item);
-                }
+                Timetable t = new Timetable();
+                t.GetTrain(splitedData);
+
+                //foreach (var item in splitedData)
+                //{
+                //    Console.WriteLine(item);
+                //}
 
             }
         }
