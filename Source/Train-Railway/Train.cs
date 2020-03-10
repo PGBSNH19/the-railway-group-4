@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Train_Railway
 {
-    public class Train
+    public class Station
     {
         public int ID { get; set; }
         public string Name { get; set; }
