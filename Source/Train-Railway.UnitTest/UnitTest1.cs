@@ -10,7 +10,7 @@ namespace Train_Railway.UnitTest
         public void TrainSpeed_Speed_MaxSpeed()
         {
             //Arrange
-            Station train = new Station();
+            Train train = new Train();
             train.Speed = 30;
             train.MaxSpeed = 120;
             //Act
@@ -30,10 +30,7 @@ namespace Train_Railway.UnitTest
         {
             //Arrange
             Station station = new Station();
-            station.Speed = 30;
-            station.MaxSpeed = 120;
             //Act
-            bool result = train.Speed <= train.MaxSpeed;
 
             //Assert
             Assert.IsTrue(result);
