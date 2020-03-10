@@ -28,12 +28,12 @@ namespace Train_Railway.UnitTest
         [TestMethod]
         public void Is_Station_Occupied()
         {
-            //Arrange
-            Station station = new Station();
-            //Act
+            ////Arrange
+            //Station station = new Station();
+            ////Act
 
-            //Assert
-            Assert.IsTrue(result);
+            ////Assert
+            //Assert.IsTrue(result);
 
         }
     }
