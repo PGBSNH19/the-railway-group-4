@@ -8,7 +8,7 @@ namespace Train_Railway
         public int Speed { get; set; }
         public int MaxSpeed { get; set; }
         public bool Operated { get; set; }
-        public void TrainInfo(int id, string name, int speed, int maxSpeed, bool operated)
+        public Train(int id, string name, int maxSpeed, bool operated)
         {
             this.ID = id;
             this.Name = name;
