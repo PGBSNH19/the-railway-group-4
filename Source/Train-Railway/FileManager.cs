@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Train_Railway
 {
+    public interface IData
+    {
+        
+    }
+
     class FilesPath
     {
         public string PassengersPath = "Data/passengers.txt";
@@ -12,11 +18,36 @@ namespace Train_Railway
         public string TrainPath = "Data/trains.txt";
         public string TrainTrackPath = "Data/traintrack.txt";
     }
-    public class FileManager
+
+    public interface IFilesRead
     {
-        public void ReadingFile(string filePath)
+        IFilesSplit ReadingFile(string filePath);
+    }
+
+    public interface IFilesSplit
+    {
+        void SplitFile();
+    }
+
+    class FileManager: IFilesRead, IFilesSplit
+    {
+        private string[] data;
+
+        public FileManager()
+        {
+
+        }
+
+        public IFilesSplit ReadingFile(string filePath)
         {
             string[] data = File.ReadAllLines(filePath);
+            
+
+            return this;
+        }
+
+        public void SplitFile()
+        {
             char[] splitBy = { ',', ';' };
 
             for (int i = 0; i < data.Length; i++)
