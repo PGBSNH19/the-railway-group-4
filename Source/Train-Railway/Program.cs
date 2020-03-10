@@ -41,7 +41,7 @@ namespace Train_Railway
                 timeTables.Add(new Timetable(tmp2[3], tmp2[2], tmp2[0], int.Parse(tmp2[1])));
             }
 
-            Console.WriteLine("\n\r TIMETABLE");
+            Console.WriteLine("TIMETABLE");
             foreach(var t in timeTables)
             {
                 Console.WriteLine($"{t.Arrival} {t.Departure} {t.StationID} {t.TrainID}");
