@@ -24,13 +24,6 @@ namespace Train_Railway
             return file;
         }
 
-        public string[] ReadFile(string filePath)
-        {
-            string[] data = File.ReadAllLines(filePath);
-            
-            return data;
-        }
-
         public static void SplitFile(string[] dataToSplit, List<Timetable> timetable)
         {
             for (int i = 1; i < dataToSplit.Length; i++)
