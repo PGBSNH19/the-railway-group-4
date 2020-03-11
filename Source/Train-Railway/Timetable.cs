@@ -15,7 +15,7 @@ namespace Train_Railway
         //int StationID { get; set; }
         //ITrainInfo GetTrain(int arrival, int departure, int trainID, int stationID);
     }
-    class Timetable: ITrainInfo, IData
+    class Timetable: ITrainInfo
     {
         public string Arrival { get; set; }
         public string Departure { get; set; }
