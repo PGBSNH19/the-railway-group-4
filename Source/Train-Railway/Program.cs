@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace Train_Railway
 {
@@ -19,7 +21,8 @@ namespace Train_Railway
         static void Main(string[] args)
         {
             IninitalizeData();
-
+            Thread train1 = new Thread(StartTrain);
+            train1.Start();
                        
             Console.ReadKey();
         }
@@ -92,5 +95,17 @@ namespace Train_Railway
                 Console.WriteLine($"{t.ID} {t.StartStation} {t.Distance} {t.EndStation}");
             }
         }
+
+        public static void StartTrain() 
+        {
+            
+            for (int i = 0; i < tracks[0].Distance; i++)
+            {
+                Thread.Sleep(2000);
+                Console.WriteLine("Train is moving");
+            }
+            Console.WriteLine("Destination reached");
+        }
+
     }
 }
