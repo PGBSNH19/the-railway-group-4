@@ -15,14 +15,12 @@ namespace Train_Railway
         static List<Station> stations = new List<Station>();
         static List<Train> trains = new List<Train>();
         static List<Track> tracks = new List<Track>();
-        //tracks list here
 
         static FilesPath m = new FilesPath();
         static void Main(string[] args)
         {
             IninitalizeData();
-            Thread train1 = new Thread(StartTrain);
-            train1.Start();
+
                        
             Console.ReadKey();
         }

@@ -12,8 +12,8 @@ namespace Train_Railway
         public string StationPath = "Data/stations.txt";
         public string TrainPath = "Data/trains.txt";
         public string TrainTrackPath = "Data/traintrack.txt";
-        
     }
+
 
     class FileManager
     {
@@ -22,6 +22,13 @@ namespace Train_Railway
             string[] file = File.ReadAllLines(filePath);
             
             return file;
+        }
+
+        public string[] ReadFile(string filePath)
+        {
+            string[] data = File.ReadAllLines(filePath);
+            
+            return data;
         }
 
         public static void SplitFile(string[] dataToSplit, List<Timetable> timetable)
