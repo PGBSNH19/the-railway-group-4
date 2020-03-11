@@ -4,8 +4,6 @@ using System.IO;
 
 namespace Train_Railway
 {
-    public interface IData { }
-
     class FilesPath
     {
         public string PassengersPath = "Data/passengers.txt";
