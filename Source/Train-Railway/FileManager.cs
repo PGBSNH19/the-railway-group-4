@@ -12,6 +12,7 @@ namespace Train_Railway
         public string StationPath = "Data/stations.txt";
         public string TrainPath = "Data/trains.txt";
         public string TrainTrackPath = "Data/traintrack.txt";
+        
     }
 
     class FileManager
@@ -56,6 +57,15 @@ namespace Train_Railway
             {
                 string[] tmp = dataToSplit[i].Split('|');
                 station.Add(new Station(int.Parse(tmp[0]), tmp[1], bool.Parse(tmp[2])));
+            }
+        }
+
+        public static void SplitFile(string[] dataToSplit, List<Track> track)
+        {
+            for (int i = 1; i < dataToSplit.Length; i++)
+            {
+                string[] tmp = dataToSplit[i].Split(';');
+                track.Add(new Track(int.Parse(tmp[0]), int.Parse(tmp[1]), double.Parse(tmp[2]), int.Parse(tmp[3])));
             }
         }
     }

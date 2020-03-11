@@ -12,6 +12,7 @@ namespace Train_Railway
         static List<Passenger> passengers = new List<Passenger>();
         static List<Station> stations = new List<Station>();
         static List<Train> trains = new List<Train>();
+        static List<Track> tracks = new List<Track>();
         //tracks list here
 
         static FilesPath m = new FilesPath();
@@ -29,7 +30,7 @@ namespace Train_Railway
             InitializePassengers();
             InitializeTrains();
             InitializeStations();
-            //InitializeTracks();
+            InitializeTracks();
         }
 
         static void InitializeTimeTable()
@@ -80,6 +81,16 @@ namespace Train_Railway
             }
         }
 
-        //static void InitializeTracks() { }
+        static void InitializeTracks()
+        {
+            string[] tmp = FileManager.ReadFile(m.TrainTrackPath);
+            FileManager.SplitFile(tmp, tracks);
+
+            Console.WriteLine("\n\rSTATIONS");
+            foreach (var t in tracks)
+            {
+                Console.WriteLine($"{t.ID} {t.StartStation} {t.Distance} {t.EndStation}");
+            }
+        }
     }
 }
