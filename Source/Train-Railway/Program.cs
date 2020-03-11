@@ -111,6 +111,10 @@ namespace Train_Railway
         public static void StartTrain()
         {
             double distance = tracks[0].Distance*1000;
+
+            var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
+            Console.WriteLine("start station" +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
+
             while (true)
             {
                 int speed = 500;
