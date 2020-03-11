@@ -113,7 +113,10 @@ namespace Train_Railway
             double distance = tracks[0].Distance*1000;
 
             var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
-            Console.WriteLine("start station" +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
+            Console.WriteLine("Start station " +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
+
+            var endStn = tracks.Where(x => x.ID == 1).Select(x => x.EndStation).FirstOrDefault();
+            Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
 
             while (true)
             {
@@ -129,7 +132,8 @@ namespace Train_Railway
                 if (distance <= 0)
                 {
                     ShowTime();
-                    break;
+        
+                     break;
                 }
             }
 
