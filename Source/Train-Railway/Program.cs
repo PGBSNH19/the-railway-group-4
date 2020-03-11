@@ -17,15 +17,27 @@ namespace Train_Railway
         static List<Track> tracks = new List<Track>();
 
         static FilesPath m = new FilesPath();
+        static Clock clock = new Clock(10,00,00);
         static void Main(string[] args)
         {
             IninitalizeData();
             Thread train1 = new Thread(StartTrain);
             train1.Start();
-                       
+            TIme();
+
             Console.ReadKey();
         }
 
+        static async void TIme()
+        {
+            while (true)
+            {
+                clock.Tick();
+                Console.WriteLine(clock.DisplayTime());
+                await Task.Delay(1000);
+                //Console.Clear();
+            }
+        }
         static void IninitalizeData()
         {
             InitializeTimeTable();
