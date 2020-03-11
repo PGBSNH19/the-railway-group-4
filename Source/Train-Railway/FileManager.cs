@@ -4,55 +4,76 @@ using System.IO;
 
 namespace Train_Railway
 {
-    public interface IData { }
-
     class FilesPath
     {
         public string PassengersPath = "Data/passengers.txt";
         public string TimetablePath = "Data/timetable.txt";
         public string ControllerPath = "Data/controllerlog.txt";
-        public string SationPath = "Data/stations.txt";
+        public string StationPath = "Data/stations.txt";
         public string TrainPath = "Data/trains.txt";
         public string TrainTrackPath = "Data/traintrack.txt";
     }
 
-    public interface IFilesRead
-    {
-        string[] ReadingFile(string filePath);
-    }
 
-    /*public interface IFilesSplit
+    class FileManager
     {
-        void SplitFile(IData idata);
-    }*/
-
-    class FileManager: IFilesRead //,IFilesSplit
-    {
-        //private string[] data;
-
-        public FileManager()
+        public static string[] ReadFile(string filePath)
         {
-
+            string[] file = File.ReadAllLines(filePath);
+            
+            return file;
         }
 
-        public string[] ReadingFile(string filePath)
+        public string[] ReadFile(string filePath)
         {
             string[] data = File.ReadAllLines(filePath);
             
             return data;
         }
 
-        /*public void SplitFile<T>(List<T> theList)
+        public static void SplitFile(string[] dataToSplit, List<Timetable> timetable)
         {
-            char[] splitBy = { ',', ';' };
-
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 1; i < dataToSplit.Length; i++)
             {
-                string[] splitedData = data[i].Split(splitBy);
-
-                theList.Add(new )
-
+                string[] tmp = dataToSplit[i].Split(',');
+                timetable.Add(new Timetable(tmp[3], tmp[2], tmp[0], int.Parse(tmp[1])));
             }
-        }*/
+        }
+
+        public static void SplitFile(string[] dataToSplit, List<Passenger> passenger)
+        {
+            for (int i = 1; i < dataToSplit.Length; i++)
+            {
+                string[] tmp = dataToSplit[i].Split(';');
+                passenger.Add(new Passenger(int.Parse(tmp[0]), tmp[1]));
+            }
+        }
+
+        public static void SplitFile(string[] dataToSplit, List<Train> train)
+        {
+            for (int i = 1; i < dataToSplit.Length; i++)
+            {
+                string[] tmp = dataToSplit[i].Split(',');
+                train.Add(new Train(int.Parse(tmp[0]), tmp[1], int.Parse(tmp[2]), bool.Parse(tmp[3])));
+            }
+        }
+
+        public static void SplitFile(string[] dataToSplit, List<Station> station)
+        {
+            for (int i = 1; i < dataToSplit.Length; i++)
+            {
+                string[] tmp = dataToSplit[i].Split('|');
+                station.Add(new Station(int.Parse(tmp[0]), tmp[1], bool.Parse(tmp[2])));
+            }
+        }
+
+        public static void SplitFile(string[] dataToSplit, List<Track> track)
+        {
+            for (int i = 1; i < dataToSplit.Length; i++)
+            {
+                string[] tmp = dataToSplit[i].Split(';');
+                track.Add(new Track(int.Parse(tmp[0]), int.Parse(tmp[1]), double.Parse(tmp[2]), int.Parse(tmp[3])));
+            }
+        }
     }
 }

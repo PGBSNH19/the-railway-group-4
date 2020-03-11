@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+
 
 namespace Train_Railway
 {
@@ -12,7 +14,7 @@ namespace Train_Railway
         static List<Passenger> passengers = new List<Passenger>();
         static List<Station> stations = new List<Station>();
         static List<Train> trains = new List<Train>();
-        //tracks list here
+        static List<Track> tracks = new List<Track>();
 
         static FilesPath m = new FilesPath();
         static void Main(string[] args)
@@ -29,18 +31,14 @@ namespace Train_Railway
             InitializePassengers();
             InitializeTrains();
             InitializeStations();
-            //InitializeTracks();
+            InitializeTracks();
         }
 
         static void InitializeTimeTable()
         {
-            string[] tmp = new FileManager().ReadingFile(m.TimetablePath);
-            for (int i = 1; i < tmp.Length; i++)
-            {
-                string[] tmp2 = tmp[i].Split(',');
-                timeTables.Add(new Timetable(tmp2[3], tmp2[2], tmp2[0], int.Parse(tmp2[1])));
-            }
-
+            string[] tmp = FileManager.ReadFile(m.TimetablePath);
+            FileManager.SplitFile(tmp, timeTables);
+            
             Console.WriteLine("TIMETABLE");
             foreach(var t in timeTables)
             {
@@ -50,12 +48,8 @@ namespace Train_Railway
 
         static void InitializePassengers()
         {
-            string[] tmp = new FileManager().ReadingFile(m.PassengersPath);
-            for (int i = 1; i < tmp.Length; i++)
-            {
-                string[] tmp2 = tmp[i].Split(';');
-                passengers.Add(new Passenger(int.Parse(tmp2[0]),tmp2[1]));
-            }
+            string[] tmp = FileManager.ReadFile(m.PassengersPath);
+            FileManager.SplitFile(tmp, passengers);
 
             Console.WriteLine("\n\rPASSENGERS");
             foreach (var t in passengers)
@@ -63,15 +57,11 @@ namespace Train_Railway
                 Console.WriteLine($"{t.ID} {t.Name}");
             }
         }
-
+        
         static void InitializeTrains()
         {
-            string[] tmp = new FileManager().ReadingFile(m.TrainPath);
-            for (int i = 1; i < tmp.Length; i++)
-            {
-                string[] tmp2 = tmp[i].Split(',');
-                trains.Add(new Train(int.Parse(tmp2[0]), tmp2[1], int.Parse(tmp2[2]), bool.Parse(tmp2[3])));
-            }
+            string[] tmp = FileManager.ReadFile(m.TrainPath);
+            FileManager.SplitFile(tmp, trains);
 
             Console.WriteLine("\n\rTRAINS");
             foreach (var t in trains)
@@ -82,12 +72,8 @@ namespace Train_Railway
 
         static void InitializeStations()
         {
-            string[] tmp = new FileManager().ReadingFile(m.SationPath);
-            for (int i = 1; i < tmp.Length; i++)
-            {
-                string[] tmp2 = tmp[i].Split('|');
-                stations.Add(new Station(int.Parse(tmp2[0]), tmp2[1], bool.Parse(tmp2[2])));
-            }
+            string[] tmp = FileManager.ReadFile(m.StationPath);
+            FileManager.SplitFile(tmp, stations);
 
             Console.WriteLine("\n\rSTATIONS");
             foreach (var t in stations)
@@ -96,6 +82,28 @@ namespace Train_Railway
             }
         }
 
-        static void InitializeTracks() { }
+        static void InitializeTracks()
+        {
+            string[] tmp = FileManager.ReadFile(m.TrainTrackPath);
+            FileManager.SplitFile(tmp, tracks);
+
+            Console.WriteLine("\n\rSTATIONS");
+            foreach (var t in tracks)
+            {
+                Console.WriteLine($"{t.ID} {t.StartStation} {t.Distance} {t.EndStation}");
+            }
+        }
+
+        public static void StartTrain() 
+        {
+            
+            for (int i = 0; i < tracks[0].Distance; i++)
+            {
+                Thread.Sleep(2000);
+                Console.WriteLine("Train is moving");
+            }
+            Console.WriteLine("Destination reached");
+        }
+
     }
 }
