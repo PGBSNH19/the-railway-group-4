@@ -96,16 +96,26 @@ namespace Train_Railway
             }
         }
 
-        public static void StartTrain() 
+        public static void StartTrain()
         {
-            
-            for (int i = 0; i < tracks[0].Distance; i++)
+            while (true)
             {
-                Thread.Sleep(2000);
-                Console.WriteLine("Train is moving");
-            }
-            Console.WriteLine("Destination reached");
-        }
+                int speed = 50;
+                double distance = tracks[0].Distance;
+                int threadCount = 1;
 
+                Thread.Sleep(1000);
+                Console.WriteLine("Train is moving..");
+                Console.WriteLine("The distance remaining is {0}",((distance*1000) - (speed * threadCount)));
+                distance = (distance*1000) - (speed * threadCount);
+                threadCount++;
+                if (distance <= 0)
+                {
+                    break;
+                }
+            }
+
+            Console.WriteLine("Destination reached"); 
+        }
     }
 }
