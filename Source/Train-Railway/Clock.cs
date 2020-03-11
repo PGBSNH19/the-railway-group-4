@@ -10,23 +10,18 @@ namespace Train_Railway
     {
         public int Hour {get; set;}
         public int Minute { get; set; }
-        public int Second { get; set; }
-        public Clock(int h, int m, int s)
+        
+        public Clock(int h, int m)
         {
             this.Hour = h;
             this.Minute = m;
-            this.Second = s;
+            
         }
 
         public void Tick()
         {
-            this.Second++; 
-            if (this.Second==60)
-            {
-                this.Minute++;
-                this.Second = 00;
-            }
-
+         
+            this.Minute++;
             if (this.Minute == 60)
             {
                 this.Hour++;
@@ -41,7 +36,7 @@ namespace Train_Railway
 
         public string DisplayTime()
         {
-            string time = this.Hour.ToString("D2") + ":" + this.Minute.ToString("D2") + ":" + this.Second.ToString("D2");
+            string time = this.Hour.ToString("D2") + ":" + this.Minute.ToString("D2");
             return time;
 
         }

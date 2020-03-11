@@ -17,13 +17,14 @@ namespace Train_Railway
         static List<Track> tracks = new List<Track>();
 
         static FilesPath m = new FilesPath();
-        static Clock clock = new Clock(10,00,00);
+        static Clock clock = new Clock(10,00);
         static void Main(string[] args)
         {
             IninitalizeData();
             Thread train1 = new Thread(StartTrain);
             train1.Start();
             TIme();
+            ShowTime();
 
             Console.ReadKey();
         }
@@ -33,7 +34,7 @@ namespace Train_Railway
             while (true)
             {
                 clock.Tick();
-                Console.WriteLine(clock.DisplayTime());
+                //Console.WriteLine(clock.DisplayTime());
                 await Task.Delay(1000);
                 //Console.Clear();
             }
@@ -110,7 +111,6 @@ namespace Train_Railway
         public static void StartTrain()
         {
             double distance = tracks[0].Distance*1000;
-            ///distance = 
             while (true)
             {
                 int speed = 500;
@@ -122,15 +122,19 @@ namespace Train_Railway
                 distance -= (speed * time);
                 Console.WriteLine("The distance remaining is {0}",distance);
                 
-            
-                //threadCount+=0.5;
                 if (distance <= 0)
                 {
+                    ShowTime();
                     break;
                 }
             }
 
             Console.WriteLine("Destination reached"); 
+        }
+
+        static void ShowTime()
+        {
+            Console.WriteLine(clock.DisplayTime());
         }
     }
 }
