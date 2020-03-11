@@ -101,10 +101,10 @@ namespace Train_Railway
             ///distance = 
             while (true)
             {
-                int speed = 50;
+                int speed = 500;
                 
                 double time = 0.5;
-
+                
                 Thread.Sleep(500);
                 Console.WriteLine("Train is moving..");
                 distance -= (speed * time);
