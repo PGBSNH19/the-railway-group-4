@@ -20,7 +20,8 @@ namespace Train_Railway
         static void Main(string[] args)
         {
             IninitalizeData();
-
+            Thread train1 = new Thread(StartTrain);
+            train1.Start();
                        
             Console.ReadKey();
         }
@@ -96,17 +97,21 @@ namespace Train_Railway
 
         public static void StartTrain()
         {
+            double distance = tracks[0].Distance*1000;
+            ///distance = 
             while (true)
             {
                 int speed = 50;
-                double distance = tracks[0].Distance;
-                int threadCount = 1;
+                
+                double time = 0.5;
 
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Console.WriteLine("Train is moving..");
-                Console.WriteLine("The distance remaining is {0}",((distance*1000) - (speed * threadCount)));
-                distance = (distance*1000) - (speed * threadCount);
-                threadCount++;
+                distance -= (speed * time);
+                Console.WriteLine("The distance remaining is {0}",distance);
+                
+            
+                //threadCount+=0.5;
                 if (distance <= 0)
                 {
                     break;
