@@ -9,49 +9,58 @@ namespace Train_Railway
 {
     interface ITrainInfo
     {
-        ITrainInfo GetTrain(string[] data);
+        //int Arrival { get; set; }
+        //int Departure { get; set; }
+        //int TrainID { get; set; }
+        //int StationID { get; set; }
+        //ITrainInfo GetTrain(int arrival, int departure, int trainID, int stationID);
     }
-    class Timetable : ITrainInfo
+    class Timetable: ITrainInfo, IData
     {
         public string Arrival { get; set; }
         public string Departure { get; set; }
         public string TrainID { get; set; }
         public int StationID { get; set; }
-        public ITrainInfo GetTrain(string[] data )
+
+        //public ITrainInfo GetTrain(string[] data )
+        //{
+        
+        //    this.TrainID = data[0];
+        //    return this;
+        //}
+      
+        public Timetable(string arrival, string departure, string trainID, int stationID)
         {
-            //foreach (var item in data)
+            this.Arrival = arrival;
+            this.Departure = departure;
+            this.TrainID = trainID;
+            this.StationID = stationID;
+        }
+       // public string TimetablePath = "Data/timetable.txt";
+        //public ITrainInfo GetTrain(/*int arrival, int departure, int trainID, int stationID*/)
+        //{
+            //string[] data = File.ReadAllLines(TimetablePath);
+            //for (int i = 0; i < data.Length; i++)
             //{
-            //    Console.WriteLine(item);
+            //   string [] splitedData= data[i].Split(',');
+            //    //Console.WriteLine(splitedData[0]);
+            //    this.TrainID = splitedData[0];
+            //    Console.WriteLine(TrainID);
+            //    //foreach (var item in splitedData)
+            //    //{
+            //    //    //.WriteLine(item);
+            //    //    this.TrainID = item[0];
+            //    //    //this.StationID = item[1];
+            //    //    //this.Departure = item[2].ToString();
+            //    //    //this.Arrival = item[3].ToString();
+            //    //}
+
             //}
-            List<string> file = new List<string>();
-            file.Add(data[0]);
-
-
-            this.TrainID = file[0];
-            return this;
-        }
-
-        public string MyMethod()
-        {
-            Console.WriteLine(TrainID);
-            return this.TrainID;
-        }
+            ////this.Arrival = arrival;
+            //this.Departure = departure;
+            //this.TrainID = trainID;
+            //this.StationID = stationID;
+           //return this; 
+        //}
     }
 }
-
-
-//public string TimetablePath = "Data/timetable.txt";
-//public string MyMethod()
-//{
-//    string[] data = File.ReadAllLines(TimetablePath);
-//    GetTrain(data);
-//    return this.TrainID;
-//}
-
-//for (int i = 0; i < data.Length; i++)
-//{
-//    string[] splitedData = data[i].Split(',');
-
-//    this.TrainID = splitedData[0];
-//    Console.WriteLine("This Train ID is " + TrainID);
-//}
