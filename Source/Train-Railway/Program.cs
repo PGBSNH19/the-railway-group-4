@@ -147,6 +147,28 @@ namespace Train_Railway
 
                     if (distance <= 0)
                     {
+                        for(int y = 0; y < stations.Count; y++)
+                        {
+                            if(stations[y].ID == endStn)
+                            {
+                                stations[y].Occupied = true;
+                                //Console.WriteLine(stations[y].Occupied + " is not occupied " );
+                                if(stations[y].Occupied == false)
+                                {
+                                    stations[y].Occupied = true;
+                                    Console.WriteLine(stations[y].Occupied + " is now occupied");
+                                }
+
+                                else
+                                {
+                                    Console.WriteLine(stations[y].StationName + "is currently occupied, plz wait");
+                                    //train.wait
+                                }
+                            }
+                        }
+
+                        //Console.WriteLine("Index: " + stationIndex);
+                        //Console.WriteLine("Index: " + index);
                         Console.WriteLine("\n\rTrain arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
                         ShowTime();
 
@@ -154,25 +176,6 @@ namespace Train_Railway
                     }
                 }
             }
-
-            /*while (true)
-            {
-                int speed = 500;
-                
-                double time = 0.5;
-                
-                Thread.Sleep(500);
-                //Console.Write("Train is moving..");
-                distance -= (speed * time);
-                Console.WriteLine("The distance remaining is {0}",distance);
-                
-                if (distance <= 0)
-                {
-                    ShowTime();
-        
-                     break;
-                }
-            }*/
 
             Console.WriteLine("Destination reached"); 
         }
