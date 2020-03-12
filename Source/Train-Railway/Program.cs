@@ -141,13 +141,13 @@ namespace Train_Railway
                     double time = 0.5;
 
                     Thread.Sleep(500);
-                    //Console.Write("Train is moving..");
+                    Console.Write(".");
                     distance -= (speed * time);
-                    Console.WriteLine("The distance remaining is {0}", distance);
+                    //Console.WriteLine("The distance remaining is {0}", distance);
 
                     if (distance <= 0)
                     {
-                        Console.WriteLine("Train arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+                        Console.WriteLine("\n\rTrain arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
                         ShowTime();
 
                         break;
