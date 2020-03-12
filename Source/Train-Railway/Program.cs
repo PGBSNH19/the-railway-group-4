@@ -39,6 +39,12 @@ namespace Train_Railway
                 //Console.Clear();
             }
         }
+
+        static void ShowTime()
+        {
+            Console.WriteLine(clock.DisplayTime());
+        }
+
         static void IninitalizeData()
         {
             InitializeTimeTable();
@@ -110,6 +116,7 @@ namespace Train_Railway
 
         public static void StartTrain()
         {
+            var route = tracks;
             double distance = tracks[0].Distance*1000;
 
             var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
@@ -125,7 +132,7 @@ namespace Train_Railway
                 double time = 0.5;
                 
                 Thread.Sleep(500);
-                Console.WriteLine("Train is moving..");
+                //Console.Write("Train is moving..");
                 distance -= (speed * time);
                 Console.WriteLine("The distance remaining is {0}",distance);
                 
@@ -140,9 +147,6 @@ namespace Train_Railway
             Console.WriteLine("Destination reached"); 
         }
 
-        static void ShowTime()
-        {
-            Console.WriteLine(clock.DisplayTime());
-        }
+
     }
 }
