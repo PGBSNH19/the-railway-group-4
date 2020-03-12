@@ -117,15 +117,45 @@ namespace Train_Railway
         public static void StartTrain()
         {
             var route = tracks;
-            double distance = tracks[0].Distance*1000;
+            //double distance = tracks[0].Distance*1000;
 
-            var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
-            Console.WriteLine("Start station " +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
+            //var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
+            //Console.WriteLine("Start station " +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
 
-            var endStn = tracks.Where(x => x.ID == 1).Select(x => x.EndStation).FirstOrDefault();
-            Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+            //var endStn = tracks.Where(x => x.ID == 1).Select(x => x.EndStation).FirstOrDefault();
+            //Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
 
-            while (true)
+            for(int i = 0; i < route.Count; i++)
+            {
+                double distance = tracks[i].Distance * 1000;
+                var startStn = route.Where(x => x.ID == route[i].ID).Select(x => x.StartStation).FirstOrDefault();
+                Console.WriteLine("Train starting from: " + stations.Where(x => x.ID == startStn).Select(x => x.StationName).FirstOrDefault());
+
+                var endStn = tracks.Where(x => x.ID == route[i].ID).Select(x => x.EndStation).FirstOrDefault();
+                Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+
+                while (true)
+                {
+                    int speed = 500;
+
+                    double time = 0.5;
+
+                    Thread.Sleep(500);
+                    //Console.Write("Train is moving..");
+                    distance -= (speed * time);
+                    Console.WriteLine("The distance remaining is {0}", distance);
+
+                    if (distance <= 0)
+                    {
+                        Console.WriteLine("Train arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+                        ShowTime();
+
+                        break;
+                    }
+                }
+            }
+
+            /*while (true)
             {
                 int speed = 500;
                 
@@ -142,7 +172,7 @@ namespace Train_Railway
         
                      break;
                 }
-            }
+            }*/
 
             Console.WriteLine("Destination reached"); 
         }
