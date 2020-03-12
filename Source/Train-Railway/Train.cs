@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Train_Railway
 {
     public class Train
@@ -14,6 +16,23 @@ namespace Train_Railway
             this.Name = name;
             this.MaxSpeed = maxSpeed;
             this.Operated = operated;
+        }
+
+        List<Passenger> wagon = new List<Passenger>();
+
+        public void SetSpeed(int speed)
+        {
+            this.Speed = speed;
+        }
+
+        public void LoadPassengers(int amount, List<Passenger> loadPassengers)
+        {
+
+        }
+
+        public void UnloadPassengers(int amount, List<Passenger> unloadPassengers)
+        {
+
         }
 
 
