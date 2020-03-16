@@ -8,10 +8,10 @@ using System.Threading;
 
 namespace Train_Railway
 {
-    class Program
+   public class Program
     {
         static List<Timetable> timeTables = new List<Timetable>();
-        static List<Passenger> passengers = new List<Passenger>();
+       public static List<Passenger> passengers = new List<Passenger>();
         static List<Station> stations = new List<Station>();
         static List<Train> trains = new List<Train>();
         static List<Track> tracks = new List<Track>();
@@ -149,9 +149,9 @@ namespace Train_Railway
             }
 
             Train train1 = GetActiveTrain(0);
-
             for (int i = 0; i < trainTrack1.Count; i++)
             {
+                Passenger.OnBoard(passengers);
                 int speed = CommandCenter.CalculateStartSpeed(clock, timeTables, trainTrack1, i);
                 train1.Speed = CommandCenter.Start(speed);
 
@@ -179,7 +179,10 @@ namespace Train_Railway
                     if (distance <= 0)
                     {
                         Console.WriteLine("\n\rTrain arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
-
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Passengers Geting Off...\n");
+                        Console.ResetColor();
+                        Thread.Sleep(3000);
                         for (int y = 0; y < stations.Count; y++)
                         {
                             if (stations[y].ID == endStn)
