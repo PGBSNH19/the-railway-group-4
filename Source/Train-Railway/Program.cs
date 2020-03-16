@@ -8,10 +8,10 @@ using System.Threading;
 
 namespace Train_Railway
 {
-   public class Program
+    class Program
     {
         static List<Timetable> timeTables = new List<Timetable>();
-       public static List<Passenger> passengers = new List<Passenger>();
+        static List<Passenger> passengers = new List<Passenger>();
         static List<Station> stations = new List<Station>();
         static List<Train> trains = new List<Train>();
         static List<Track> tracks = new List<Track>();
@@ -172,7 +172,9 @@ namespace Train_Railway
                     int distancePerMin = (int)Math.Ceiling(calcDistancePerMin);
 
                     Thread.Sleep(1000);
-                    Console.Write(".");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("==>>");
+                    Console.ResetColor();
                     distance -= (distancePerMin);
                     //Console.WriteLine("The distance remaining is {0}", distance);
 

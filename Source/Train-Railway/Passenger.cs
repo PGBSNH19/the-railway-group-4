@@ -17,10 +17,11 @@ namespace Train_Railway
 			Name = name;
 		}
 
-		static List<string> PassengerListOnBoard;
-		static Random rand = new Random();
+		
 		public static void OnBoard(List<Passenger> passengers)
 		{
+			List<string> PassengerListOnBoard;
+		    Random rand = new Random();
 			List<string> passengersOnBoard = new List<string>();
 			for (int i = 0; i < 15; i++)
 			{
