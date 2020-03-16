@@ -6,12 +6,12 @@ namespace Train_Railway
 {
     class FilesPath
     {
-        public string PassengersPath = "Data/passengers.txt";
-        public string TimetablePath = "Data/timetable.txt";
-        public string ControllerPath = "Data/controllerlog.txt";
-        public string StationPath = "Data/stations.txt";
-        public string TrainPath = "Data/trains.txt";
-        public string TrainTrackPath = "Data/traintrack.txt";
+        public static string PassengersPath { get; } = "Data/passengers.txt";
+        public static string TimetablePath { get; } = "Data/timetable.txt";
+        public static string ControllerPath { get; } = "Data/controllerlog.txt";
+        public static string StationPath { get; } = "Data/stations.txt";
+        public static string TrainPath { get; } = "Data/trains.txt";
+        public static string TrainTrackPath { get; } = "Data/traintrack.txt";
     }
 
 
@@ -20,8 +20,17 @@ namespace Train_Railway
         public static string[] ReadFile(string filePath)
         {
             string[] file = File.ReadAllLines(filePath);
-            
+
             return file;
+        }
+
+        public static void WriteFile(string filePath, string[] objToWrite)
+        {
+            File.WriteAllLines(filePath, objToWrite);
+        }
+        public static void WriteFile(string filePath, List<string> objToWrite)
+        {
+            File.WriteAllLines(filePath, objToWrite);
         }
 
         public static void SplitFile(string[] dataToSplit, List<Timetable> timetable)

@@ -16,8 +16,8 @@ namespace Train_Railway
         static List<Train> trains = new List<Train>();
         static List<Track> tracks = new List<Track>();
 
-        static FilesPath m = new FilesPath();
-        static Clock clock = new Clock(10,00);
+        //static FilesPath m = new FilesPath();
+        static Clock clock = new Clock(10, 19);
         static void Main(string[] args)
         {
             IninitalizeData();
@@ -28,17 +28,16 @@ namespace Train_Railway
                 avaliableTrains.Add(train);
             }
 
-            Train train1 = avaliableTrains[0];
+            //Train train1 = avaliableTrains[0];
             Train train2 = avaliableTrains[1];
 
             Thread track1 = new Thread(StartTrain1);
-            Thread track2 = new Thread(StartTrain2);
+            //Thread track2 = new Thread(StartTrain2);
             track1.Start();
-            track2.Start();
+            //track2.Start();
 
-            
             Time();
-            ShowTime();
+            //ShowTime();
 
             Console.ReadKey();
         }
@@ -59,6 +58,17 @@ namespace Train_Railway
             Console.WriteLine(clock.DisplayTime());
         }
 
+        static Train GetActiveTrain(int index)
+        {
+            List<Train> avaliableTrains = new List<Train>();
+            var tmpTrains = trains.Where(t => t.Operated == true);
+            foreach (Train train in tmpTrains)
+            {
+                avaliableTrains.Add(train);
+            }
+            return avaliableTrains[index];
+        }
+
         static void IninitalizeData()
         {
             InitializeTimeTable();
@@ -70,11 +80,11 @@ namespace Train_Railway
 
         static void InitializeTimeTable()
         {
-            string[] tmp = FileManager.ReadFile(m.TimetablePath);
+            string[] tmp = FileManager.ReadFile(FilesPath.TimetablePath);
             FileManager.SplitFile(tmp, timeTables);
-            
+
             Console.WriteLine("TIMETABLE");
-            foreach(var t in timeTables)
+            foreach (var t in timeTables)
             {
                 Console.WriteLine($"{t.Arrival} {t.Departure} {t.StationID} {t.TrainID}");
             }
@@ -82,7 +92,7 @@ namespace Train_Railway
 
         static void InitializePassengers()
         {
-            string[] tmp = FileManager.ReadFile(m.PassengersPath);
+            string[] tmp = FileManager.ReadFile(FilesPath.PassengersPath);
             FileManager.SplitFile(tmp, passengers);
 
             Console.WriteLine("\n\rPASSENGERS");
@@ -91,10 +101,10 @@ namespace Train_Railway
                 Console.WriteLine($"{t.ID} {t.Name}");
             }
         }
-        
+
         static void InitializeTrains()
         {
-            string[] tmp = FileManager.ReadFile(m.TrainPath);
+            string[] tmp = FileManager.ReadFile(FilesPath.TrainPath);
             FileManager.SplitFile(tmp, trains);
 
             Console.WriteLine("\n\rTRAINS");
@@ -106,19 +116,20 @@ namespace Train_Railway
 
         static void InitializeStations()
         {
-            string[] tmp = FileManager.ReadFile(m.StationPath);
+            string[] tmp = FileManager.ReadFile(FilesPath.StationPath);
             FileManager.SplitFile(tmp, stations);
 
             Console.WriteLine("\n\rSTATIONS");
             foreach (var t in stations)
             {
                 Console.WriteLine($"{t.ID} {t.StationName} {t.EndStation}");
+                t.IsAvaliable = true;
             }
         }
 
         static void InitializeTracks()
         {
-            string[] tmp = FileManager.ReadFile(m.TrainTrackPath);
+            string[] tmp = FileManager.ReadFile(FilesPath.TrainTrackPath);
             FileManager.SplitFile(tmp, tracks);
 
             Console.WriteLine("\n\rSTATIONS");
@@ -130,72 +141,91 @@ namespace Train_Railway
 
         public static void StartTrain1()
         {
-            var route = tracks;
-            //double distance = tracks[0].Distance*1000;
-
-            //var startStn = tracks.Where(x => x.ID == 1).Select(x => x.StartStation).FirstOrDefault();
-            //Console.WriteLine("Start station " +  stations.Where(x => x.ID == startStn).Select(x=> x.StationName).FirstOrDefault());
-
-            //var endStn = tracks.Where(x => x.ID == 1).Select(x => x.EndStation).FirstOrDefault();
-            //Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
-
-            for(int i = 0; i < route.Count; i++)
+            var route = tracks.Where(t => t.ID == 1 || t.ID == 2);
+            List<Track> trainTrack1 = new List<Track>();
+            foreach (Track track in route)
             {
-                double distance = tracks[i].Distance * 1000;
-                var startStn = route.Where(x => x.ID == route[i].ID).Select(x => x.StartStation).FirstOrDefault();
-                Console.WriteLine("Train starting from: " + stations.Where(x => x.ID == startStn).Select(x => x.StationName).FirstOrDefault());
+                trainTrack1.Add(track);
+            }
 
-                var endStn = tracks.Where(x => x.ID == route[i].ID).Select(x => x.EndStation).FirstOrDefault();
-                Console.WriteLine("End station " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+            Train train1 = GetActiveTrain(0);
+
+            for (int i = 0; i < trainTrack1.Count; i++)
+            {
+                int speed = CommandCenter.CalculateStartSpeed(clock, timeTables, trainTrack1, i);
+                train1.Speed = CommandCenter.Start(speed);
+
+                int startStn = CommandCenter.DepartFromStation(route, trainTrack1, stations, clock, i);
+                //var startStn = route.Where(x => x.ID == trainTrack1[i].ID).Select(x => x.StartStation).FirstOrDefault();
+                //Console.Write("Train now depart from: " + stations.Where(x => x.ID == startStn).Select(x => x.StationName).FirstOrDefault());
+
+                int endStn = CommandCenter.DepartToStation(route, trainTrack1, stations, clock, i);
+                //var endStn = route.Where(x => x.ID == trainTrack1[i].ID).Select(x => x.EndStation).FirstOrDefault();
+                //Console.Write(", End station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault() + "\n\r");
+                Console.WriteLine("Time of Depature: " + clock.DisplayTime());
+
+                double distance = tracks[i].Distance * 1000;
 
                 while (true)
                 {
-                    int speed = 500;
+                    double calcDistancePerMin = (double)train1.Speed * 16.666666666;
+                    int distancePerMin = (int)Math.Ceiling(calcDistancePerMin);
 
-                    double time = 0.5;
-
-                    Thread.Sleep(500);
+                    Thread.Sleep(1000);
                     Console.Write(".");
-                    distance -= (speed * time);
+                    distance -= (distancePerMin);
                     //Console.WriteLine("The distance remaining is {0}", distance);
 
                     if (distance <= 0)
                     {
-                        for(int y = 0; y < stations.Count; y++)
+                        Console.WriteLine("\n\rTrain arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
+
+                        for (int y = 0; y < stations.Count; y++)
                         {
-                            if(stations[y].ID == endStn)
+                            if (stations[y].ID == endStn)
                             {
-                                stations[y].Occupied = true;
-                                //Console.WriteLine(stations[y].Occupied + " is not occupied " );
-                                if(stations[y].Occupied == false)
+                                if (stations[y].IsAvaliable == true)
                                 {
-                                    stations[y].Occupied = true;
-                                    Console.WriteLine(stations[y].Occupied + " is now occupied");
+                                    /*static bool isInitialized;
+                                    static object initLock = new object();
+
+                                    static void InitializeIfNeeded()
+                                    {
+                                        if (!isInitialized)
+                                        {
+                                            lock (initLock)
+                                            {
+                                                if (!isInitialized)
+                                                {
+                                                    // init code here
+
+                                                    isInitialized = true;
+                                                }
+                                            }
+                                        }
+                                    }*/
+                                    stations[y].IsAvaliable = false;
+                                    Console.WriteLine("Station is now avaliable: " + stations[y].IsAvaliable);
+                                    Console.WriteLine("Time of arrival: " + clock.DisplayTime());
                                 }
 
                                 else
                                 {
-                                    Console.WriteLine(stations[y].StationName + "is currently occupied, plz wait");
+                                    Console.WriteLine(stations[y].StationName + " is currently occupied, plz wait");
                                     //train.wait
                                 }
                             }
                         }
-
-                        //Console.WriteLine("Index: " + stationIndex);
-                        //Console.WriteLine("Index: " + index);
-                        Console.WriteLine("\n\rTrain arrived at station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault());
-                        ShowTime();
 
                         break;
                     }
                 }
             }
 
-
-
-            Console.WriteLine("Destination reached"); 
+            Console.WriteLine("Destination reached");
         }
-        public static void StartTrain2()
+
+        /*public static void StartTrain2()
         {
             var route = tracks;
             //double distance = tracks[0].Distance*1000;
@@ -242,7 +272,7 @@ namespace Train_Railway
 
                                 else
                                 {
-                                    Console.WriteLine(stations[y].StationName + "is currently occupied, plz wait");
+                                    Console.WriteLine(stations[y].StationName + " is currently occupied, plz wait");
                                     //train.wait
                                 }
                             }
@@ -258,5 +288,6 @@ namespace Train_Railway
                 }
             }
 
-        }
+        }*/
+    }
 }

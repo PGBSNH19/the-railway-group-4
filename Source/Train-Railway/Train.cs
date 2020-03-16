@@ -20,11 +20,6 @@ namespace Train_Railway
 
         List<Passenger> wagon = new List<Passenger>();
 
-        public void SetSpeed(int speed)
-        {
-            this.Speed = speed;
-        }
-
         public void LoadPassengers(int amount, List<Passenger> loadPassengers)
         {
 

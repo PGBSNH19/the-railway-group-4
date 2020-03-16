@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clock.cs" />
-    <Compile Include="CommonInterface.cs" />
+    <Compile Include="CommandCenter.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Passenger.cs" />
     <Compile Include="Program.cs" />

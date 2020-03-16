@@ -7,8 +7,7 @@ namespace Train_Railway
         public int ID { get; set; }
         public string StationName { get; set; }
         public bool EndStation { get; set; }
-        public bool Occupied { get; set; } = false;
-        //private int id;
+        public bool IsAvaliable { get; set; } = false;
 
         public List<Passenger> Travelers = new List<Passenger>();
 
@@ -17,11 +16,6 @@ namespace Train_Railway
             this.ID = id;
             this.StationName = stationName;
             this.EndStation = endStation;
-        }
-
-        public void InUse(bool b)
-        {
-            Occupied = b;
         }
     }
 }
