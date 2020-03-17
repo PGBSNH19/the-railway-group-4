@@ -78,10 +78,24 @@ namespace Train_Railway
             var endStn = route.Where(x => x.ID == track[index].ID).Select(x => x.EndStation).FirstOrDefault();
             Console.Write(", End station: " + stations.Where(x => x.ID == endStn).Select(x => x.StationName).FirstOrDefault() + "\n\r");
 
-            UnlockStation(index, stations);
+            
             return endStn;
 
 
+        }
+
+        public static int GetStartStationID(IEnumerable<Track> route, List<Track> track, List<Station> stations, int index)
+        {
+            var station = route.Where(x => x.ID == track[index].ID).Select(x => x.StartStation).FirstOrDefault();
+
+            return station;
+        }
+
+        public static int GetEndStationID(IEnumerable<Track> route, List<Track> track, List<Station> stations, int index)
+        {
+            var station = route.Where(x => x.ID == track[index].ID).Select(x => x.EndStation).FirstOrDefault();
+
+            return station;
         }
 
         public static void UnlockStation(int index, List<Station> stations)

@@ -7,7 +7,7 @@ namespace Train_Railway
         public int ID { get; set; }
         public string StationName { get; set; }
         public bool EndStation { get; set; }
-        public bool IsAvaliable { get; set; } = false;
+        public bool IsAvaliable { get; set; } = true;
 
         public List<Passenger> Travelers = new List<Passenger>();
 
