@@ -114,7 +114,7 @@ namespace Train_Railway
             FileManager.WriteFile(filepath, dataLogger);
         }
 
-        public static void LogData()
+        public static void LogData(string stationName, Clock clock)
         {
             string entry = $"{stationName},{aArrival},TimeTableArrival,{aDeparture}, TimeTableDeparture";
             dataLogger.Add(entry);

@@ -28,6 +28,7 @@ namespace Train_Railway
             Thread track2 = new Thread(StartTrain2);
             track1.Start();
             track2.Start();
+            
 
             Time();
 
