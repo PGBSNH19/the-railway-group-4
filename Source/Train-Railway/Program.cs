@@ -221,7 +221,7 @@ namespace Train_Railway
                 trainTrack.Add(track);
             }
 
-            Train train1 = GetActiveTrain(1);
+            Train train2 = GetActiveTrain(1);
             for (int i = 0; i < trainTrack.Count; i++)
             {
                 int startStn = CommandCenter.GetStartStationID(route, trainTrack, stations, i);
@@ -247,9 +247,9 @@ namespace Train_Railway
 
                                     Passenger.OnBoard(passengers);
                                     int speed = CommandCenter.CalculateStartSpeed(clock, timeTables, trainTrack, i);
-                                    train1.Speed = CommandCenter.Start(speed);
+                                    train2.Speed = CommandCenter.Start(speed);
 
-                                    Console.WriteLine($"{train1.Name} now depart from: " + startStnName + ", End station: " + endStnName);
+                                    Console.WriteLine($"{train2.Name} now depart from: " + startStnName + ", End station: " + endStnName);
                                     Console.WriteLine("Time of Depature: " + clock.DisplayTime());
 
                                     //Thread.Sleep(9000);
@@ -265,7 +265,7 @@ namespace Train_Railway
 
                 while (true)
                 {
-                    double calcDistancePerMin = (double)train1.Speed * 16.666666666;
+                    double calcDistancePerMin = (double)train2.Speed * 16.666666666;
                     int distancePerMin = (int)Math.Ceiling(calcDistancePerMin);
 
                     Thread.Sleep(1000);
@@ -277,7 +277,7 @@ namespace Train_Railway
 
                     if (distance <= 0)
                     {
-                        Console.WriteLine($"\n\r{train1.Name} has now arrived at station: " + endStnName);
+                        Console.WriteLine($"\n\r{train2.Name} has now arrived at station: " + endStnName);
                         Console.WriteLine("Time of arrival: " + clock.DisplayTime());
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Passengers Geting Off...\n");
