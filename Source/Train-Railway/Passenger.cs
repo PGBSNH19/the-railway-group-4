@@ -29,7 +29,7 @@ namespace Train_Railway
 			}
 			PassengerListOnBoard = passengersOnBoard.Distinct().ToList();
 			Console.BackgroundColor = ConsoleColor.DarkBlue;
-			Console.WriteLine("Passengers List: ");
+			Console.WriteLine($"\n\rPassengers List: ");
 			Console.ResetColor();
 			foreach (var item in PassengerListOnBoard)
 			{
