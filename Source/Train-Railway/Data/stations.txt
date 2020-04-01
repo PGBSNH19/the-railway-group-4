@@ -1,0 +1,6 @@
+Id|StationName|EndStation
+1|Stockholm|true
+2|Gothenburg|false
+3|Malmo|true
+4|Oslo|true
+5|Kalmar|true
